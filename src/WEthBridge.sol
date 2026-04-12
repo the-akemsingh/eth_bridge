@@ -18,16 +18,16 @@ contract WEthBridge is Ownable {
         WEthAddress = _EthContractAddress;
     }
 
-    function mint(uint amount) public onlyOwner {
-        require(usersRecord[msg.sender] >= amount);
-        WEth(WEthAddress).mint(msg.sender, amount);
-        usersRecord[msg.sender] -= amount;
+    function mint(address to, uint amount) public onlyOwner {
+        require(usersRecord[to] >= amount);
+        WEth(WEthAddress).mint(to, amount);
+        usersRecord[to] -= amount;
     }
 
-    function burn(uint amount) public {
-        require(WEth(WEthAddress).balanceOf(msg.sender) >= amount);
-        WEth(WEthAddress).burn(msg.sender, amount);
-        emit Burned(msg.sender, amount);
+    function burnFrom(address from, uint amount) public onlyOwner {
+        require(WEth(WEthAddress).balanceOf(from) >= amount);
+        WEth(WEthAddress).burn(from, amount);
+        emit Burned(from, amount);
     }
 
     function deopsitedOnOtherSide(address from, uint amount) public onlyOwner {
