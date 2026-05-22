@@ -30,7 +30,7 @@ contract WEthBridge is Ownable {
         emit Burned(from, amount);
     }
 
-    function deopsitedOnOtherSide(address from, uint amount) public onlyOwner {
+    function depositedOnOtherSide(address from, uint amount) public onlyOwner {
         usersRecord[from] += amount;
     }
 }
