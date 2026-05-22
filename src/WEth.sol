@@ -13,7 +13,7 @@ contract WEth is ERC20, Ownable {
         _mint(to, amount);
     }
 
-    function burn(address to, uint amount) public onlyOwner {
-        _burn(to, amount);
+    function burn(address from, uint amount) public onlyOwner {
+        _burn(from, amount);
     }
 }

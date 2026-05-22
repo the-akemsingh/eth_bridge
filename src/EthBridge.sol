@@ -27,13 +27,16 @@ contract EthBridge is Ownable {
 
     function lock(uint amount) public {
         require(amount <= Eth(EthAddress).allowance(msg.sender, address(this)));
-        Eth(EthAddress).transferFrom(msg.sender, address(this), amount);
+        require(
+            Eth(EthAddress).transferFrom(msg.sender, address(this), amount)
+        );
         emit Deposit(msg.sender, amount);
     }
 
     function unLock(uint amount) public {
         require(amount <= usersRecord[msg.sender]);
-        Eth(EthAddress).transfer(msg.sender, amount);
+        require(Eth(EthAddress).transfer(msg.sender, amount));
+
         usersRecord[msg.sender] -= amount;
     }
 
